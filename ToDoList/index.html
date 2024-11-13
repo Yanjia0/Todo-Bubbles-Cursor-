@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办小球 - Todo Bubbles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="add-task-form">
+            <h1>✨ 创建新任务 ✨</h1>
+            <form id="taskForm">
+                <div class="input-group">
+                    <input type="text" id="taskName" placeholder="输入你的小目标..." required>
+                </div>
+                
+                <div class="input-group importance">
+                    <label>重要程度</label>
+                    <div class="star-rating">
+                        <input type="radio" name="importance" value="5" id="star5">
+                        <label for="star5">★</label>
+                        <input type="radio" name="importance" value="4" id="star4">
+                        <label for="star4">★</label>
+                        <input type="radio" name="importance" value="3" id="star3">
+                        <label for="star3">★</label>
+                        <input type="radio" name="importance" value="2" id="star2">
+                        <label for="star2">★</label>
+                        <input type="radio" name="importance" value="1" id="star1">
+                        <label for="star1">★</label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>截止日期</label>
+                    <input type="datetime-local" id="deadline" required>
+                </div>
+
+                <button type="submit" class="submit-btn">创建泡泡</button>
+            </form>
+
+            <a href="tasks.html" class="view-tasks-btn">
+                <span class="btn-text">查看我的泡泡</span>
+                <span class="btn-icon">🫧</span>
+            </a>
+        </div>
+        
+        <div class="decoration">
+            <div class="floating-bubble bubble1"></div>
+            <div class="floating-bubble bubble2"></div>
+            <div class="floating-bubble bubble3"></div>
+        </div>
+    </div>
+
+    <div class="cat-container pink"></div>
+    <div class="cat-container blue"></div>
+
+    <script src="script.js"></script>
+    <script src="cat.js"></script>
+</body>
+</html> 

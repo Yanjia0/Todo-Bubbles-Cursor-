@@ -1,0 +1,587 @@
+:root {
+    --primary-color: #ff9ecd;
+    --secondary-color: #ffd6e7;
+    --accent-color: #ffb6c1;
+    --text-color: #4a4a4a;
+    --background-color: #fff5f8;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 添加花纹背景 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(135deg, var(--primary-color) 25%, transparent 25%) -10px 0,
+        linear-gradient(225deg, var(--primary-color) 25%, transparent 25%) -10px 0,
+        linear-gradient(315deg, var(--primary-color) 25%, transparent 25%),
+        linear-gradient(45deg, var(--primary-color) 25%, transparent 25%);
+    background-size: 20px 20px;
+    background-color: var(--background-color);
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0;
+    padding: 2rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.add-task-form {
+    width: 25vw;
+    min-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    box-shadow: 
+        0 10px 40px rgba(255, 158, 205, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.6),
+        0 5px 15px rgba(255, 158, 205, 0.3);
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: box-shadow 0.3s ease;
+}
+
+.add-task-form:hover {
+    box-shadow: 
+        0 15px 50px rgba(255, 158, 205, 0.5),
+        0 0 40px rgba(255, 255, 255, 0.7),
+        0 8px 20px rgba(255, 158, 205, 0.4);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    padding: 0 5px;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    display: block;
+}
+
+input[type="text"]:focus,
+input[type="datetime-local"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(255, 158, 205, 0.3);
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 2.2rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 0 3px;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label,
+.star-rating input:checked ~ label {
+    color: #ffb6c1;
+}
+
+.submit-btn, .view-tasks-btn {
+    width: calc(100% - 10px);
+    padding: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 1rem 5px;
+}
+
+.submit-btn {
+    background: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.view-tasks-btn {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    box-shadow: 0 4px 15px rgba(255, 158, 205, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn:hover {
+    background: #ff7eb6;
+    transform: translateY(-2px);
+}
+
+.view-tasks-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 158, 205, 0.4);
+}
+
+/* 装饰性气泡 */
+.decoration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+}
+
+.bubble1 {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 15%;
+    animation-delay: 0s;
+}
+
+.bubble2 {
+    width: 60px;
+    height: 60px;
+    top: 30%;
+    right: 20%;
+    animation-delay: 2s;
+}
+
+.bubble3 {
+    width: 80px;
+    height: 80px;
+    bottom: 25%;
+    right: 15%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+/* 确保按钮在移动设备上也好看 */
+@media (max-width: 768px) {
+    .view-tasks-btn {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+/* 小猫样式 */
+.cat-container {
+    position: absolute;
+    left: 75%;
+    bottom: calc(100% - 40px);
+    transform: translateX(-50%);
+    width: 120px;
+    height: 160px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.cat {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cat-body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s ease;
+}
+
+.cat-head {
+    position: absolute;
+    width: 70px;
+    height: 65px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.cat-ears {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    top: -15px;
+}
+
+.cat-ear {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid var(--primary-color);
+}
+
+.cat-ear.left {
+    left: 10px;
+    transform: rotate(-20deg);
+}
+
+.cat-ear.right {
+    right: 10px;
+    transform: rotate(20deg);
+}
+
+.cat-ear-inner {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 20px solid #ff7eb6;
+    bottom: -25px;
+    left: -8px;
+}
+
+.cat-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cat-eyes {
+    position: absolute;
+    width: 100%;
+    top: 25px;
+}
+
+.cat-eye {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.cat-pupil {
+    position: absolute;
+    width: 6px;
+    height: 12px;
+    background: #333;
+    border-radius: 50%;
+    transition: all 0.1s ease;
+}
+
+.cat-eye.left {
+    left: 20px;
+}
+
+.cat-eye.right {
+    right: 20px;
+}
+
+.cat-nose {
+    position: absolute;
+    width: 10px;
+    height: 8px;
+    background: #ff7eb6;
+    border-radius: 50%;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cat-mouth {
+    position: absolute;
+    width: 12px;
+    height: 8px;
+    border-bottom: 2px solid #ff7eb6;
+    border-radius: 50%;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cat-whiskers {
+    position: absolute;
+    width: 100%;
+    top: 45px;
+}
+
+.whiskers-left, .whiskers-right {
+    position: absolute;
+    width: 25px;
+    height: 30px;
+}
+
+.whiskers-left {
+    left: 0;
+}
+
+.whiskers-right {
+    right: 0;
+}
+
+.whiskers-left span, .whiskers-right span {
+    position: absolute;
+    width: 25px;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.whiskers-left span {
+    left: 0;
+    transform-origin: left center;
+}
+
+.whiskers-right span {
+    right: 0;
+    transform-origin: right center;
+}
+
+.whiskers-left span:nth-child(1) { transform: rotate(-10deg); top: 0; }
+.whiskers-left span:nth-child(2) { transform: rotate(0deg); top: 8px; }
+.whiskers-left span:nth-child(3) { transform: rotate(10deg); top: 16px; }
+
+.whiskers-right span:nth-child(1) { transform: rotate(10deg); top: 0; }
+.whiskers-right span:nth-child(2) { transform: rotate(0deg); top: 8px; }
+.whiskers-right span:nth-child(3) { transform: rotate(-10deg); top: 16px; }
+
+.cat-torso {
+    position: absolute;
+    width: 60px;
+    height: 70px;
+    background: var(--primary-color);
+    border-radius: 30px;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.cat-tail {
+    position: absolute;
+    width: 12px;
+    height: 50px;
+    background: var(--primary-color);
+    border-radius: 6px;
+    bottom: 40px;
+    right: 25px;
+    transform-origin: bottom center;
+    animation: tailWag 3s ease-in-out infinite;
+}
+
+.cat-legs {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    bottom: 0;
+}
+
+.cat-leg {
+    position: absolute;
+    width: 10px;
+    height: 30px;
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+.cat-leg.front-left {
+    left: 35px;
+}
+
+.cat-leg.front-right {
+    left: 55px;
+}
+
+.cat-leg.back-left {
+    left: 45px;
+}
+
+.cat-leg.back-right {
+    left: 65px;
+}
+
+@keyframes tailWag {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-15deg); }
+}
+
+/* 修改右下角粉色小猫的位置 */
+.cat-container.pink {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    width: 120px;
+    height: 160px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* 添加左下角蓝色小猫的样式 */
+.cat-container.blue {
+    position: fixed;
+    left: 20%;
+    bottom: 40px;
+    width: 120px;
+    height: 160px;
+    z-index: 1000;
+    pointer-events: none;
+    transform: scaleX(-1);
+}
+
+/* 猫的身体部分样式 */
+.cat-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cat-torso {
+    position: absolute;
+    width: 60px;
+    height: 70px;
+    background: inherit;
+    border-radius: 30px;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.cat-legs {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 40px;
+}
+
+.cat-leg {
+    position: absolute;
+    width: 10px;
+    height: 35px;
+    background: inherit;
+    border-radius: 5px;
+}
+
+.cat-leg.front-left {
+    left: 10px;
+    bottom: 0;
+}
+
+.cat-leg.front-right {
+    left: 40px;
+    bottom: 0;
+}
+
+.cat-leg.back-left {
+    left: 20px;
+    bottom: 0;
+}
+
+.cat-leg.back-right {
+    left: 50px;
+    bottom: 0;
+}
+
+.cat-tail {
+    position: absolute;
+    width: 8px;
+    height: 45px;
+    background: inherit;
+    border-radius: 4px;
+    bottom: 35px;
+    right: 25px;
+    transform-origin: bottom center;
+    animation: tailWag 3s ease-in-out infinite;
+}
+
+@keyframes tailWag {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-15deg); }
+}
+
+/* 蓝猫的颜色覆盖 */
+.cat-container.blue .cat-head,
+.cat-container.blue .cat-ear,
+.cat-container.blue .cat-torso,
+.cat-container.blue .cat-tail,
+.cat-container.blue .cat-leg {
+    background: #87CEEB !important;
+}
+
+/* 粉猫的颜色设置 */
+.cat-container.pink .cat-head,
+.cat-container.pink .cat-ear,
+.cat-container.pink .cat-torso,
+.cat-container.pink .cat-tail,
+.cat-container.pink .cat-leg {
+    background: var(--primary-color);
+} 
